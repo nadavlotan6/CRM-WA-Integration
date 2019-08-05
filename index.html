@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+
+<head>
+  <title>Home Hero - Whatsapp Interface</title>
+  <link rel="icon" href="https://www.homehero.co.il/assets/images/favicon/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class=imgDiv>
+    <img class=logoImg src="https://www.homehero.co.il/assets/images/headerlogo.svg">
+  </div>
+  <div class=formDiv align=center dir="rtl">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      $(function () {
+        var socket = io();
+        socket.on('phoneNum', function (data) {
+          // $('#messages').append($('<li>').text(phone));
+          console.log(data);
+          let phoneNumerToSend = data;
+          document.getElementById("textId").value = phoneNumerToSend;
+          document.getElementById("phoneText").innerHTML = phoneNumerToSend;
+          socket.emit('test', phoneNumerToSend);
+        });
+      });
+    </script>
+
+
+    <h2 style="margin-top:2px"> שליחת הודעה ב-WhatsApp </h2> <br>
+    <h4 style="margin-top:2px"> השירות מחייב WhatsApp Web פתוח ורשום </h2>
+      <h4 style="margin-top:2px"> (ניתן לשלוח הודעה גם לאדם שאינו ברשימת אנשי הקשר) </h4>
+
+      <br>
+      <h3 style="margin-top:2px"> ההודעה תישלח לטלפון: </h3>
+      <h2 id="phoneText"></h2>
+      <br>
+
+      <div class=messageDiv>
+        <h3 style="margin: 5px;"> נא להכניס את ההודעה או לבחור מההודעות האוטומטיות </h3>
+        <textarea class="textarea" id="textarea" rows="4" cols="20"></textarea><br>
+        <text id="textId"></text>
+      </div>
+
+
+      <div class=optionsDiv align=right dir="rtl" style="width: 75%">
+        <h4 onclick="javascript:document.getElementById('textarea').value += this.innerText;"> בוקר טוב, זה צפריר מHome
+          Hero, אני מזכיר לך שאנחנו נפגשים היום ב-19:00 ברחוב זכרון יעקב 5, *אנא שלחי לי קומה ומספר דירה*. תודה, צפריר
+          שוראקי Home Hero </h4> <br>
+        <h4 onclick="javascript:document.getElementById('textarea').value += this.innerText;"> היי, לא הצלחתי להשיג
+          אותך,
+          אשמח שתיתצור איתי קשר בהקדם. </h4> <br>
+        <h4 onclick="javascript:document.getElementById('textarea').value += this.innerText;"> היי, תודה שהתקשרת אליי 😊
+          כדי שאמצא עבורך את הדירה המתאימה ביותר יש ללחוץ כאן למילוי פרטים: </h4> <br>
+        <!-- <h4 onclick="javascript:document.getElementById('textarea').value += this.innerText;"> </h4> <br>
+      <h4 onclick="javascript:document.getElementById('textarea').value += this.innerText;"> </h4> <br>
+      <h4 onclick="javascript:document.getElementById('textarea').value += this.innerText;"> </h4> <br>
+      <h4 onclick="javascript:document.getElementById('textarea').value += this.innerText;"> </h4> <br> -->
+        <!-- <h4 id="first" onclick="javascript:document.getElementById('textarea').value += document.getElementById('first').innerText;"> בדיקה לטקסט לדוגמא! </h4> <br> -->
+      </div>
+      <button class=sendBtn onclick="myFunction();"> שלח הודעה
+      </button>
+      <button class=clearBtn onclick="clearText();">נקה טקסט</button>
+      <script>
+        function myFunction() {
+          var text = document.getElementById("textarea").value;
+          var userPhone = document.getElementById("textId").value;
+          console.log(text);
+
+          window.location.href = 'https://api.whatsapp.com/send?phone=' + userPhone + '&text=' + text;
+        }
+
+        function clearText() {
+          document.getElementById("textarea").value = "";
+        }
+
+        // funciton addToTextArea() {
+        //   document.getElementById("textarea").value += cars[i];
+        // }
+      </script>
+  </div>
+
+</body>
