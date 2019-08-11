@@ -29,6 +29,11 @@ io.on('connection', function (socket) {
     socket.on('test', function (data) {
         console.log(data);
     })
+
+    socket.on('text', function (data) {
+        console.log("Text Recieved");
+        console.log(data);
+    })
 });
 
 

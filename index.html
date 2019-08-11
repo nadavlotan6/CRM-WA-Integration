@@ -74,6 +74,19 @@
           var userPhone = document.getElementById("textId").value;
           console.log(text);
 
+          $(function () {
+            var socket = io();
+            // socket.on('phoneNum', function (data) {
+            // $('#messages').append($('<li>').text(phone));
+            //console.log(data);
+            // let phoneNumerToSend = data;
+            // document.getElementById("textId").value = phoneNumerToSend;
+            let textToSend = document.getElementById("textarea").innerHTML;
+            socket.emit('text', textToSend);
+            // });
+          });
+
+
           window.location.href = 'https://api.whatsapp.com/send?phone=' + userPhone + '&text=' + text;
         }
 
